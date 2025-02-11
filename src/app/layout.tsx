@@ -1,5 +1,8 @@
 import './global.css';
+import { ConfigProvider } from 'antd';
+import fa_IR from 'antd/es/locale/fa_IR'
 import { StyledComponentsRegistry } from './registry';
+import '@ant-design/v5-patch-for-react-19';
 
 export const metadata = {
   title: 'Welcome to demo2',
@@ -12,9 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="fa">
       <body>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <ConfigProvider locale={fa_IR} direction="rtl">
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        </ConfigProvider>
       </body>
     </html>
   );
