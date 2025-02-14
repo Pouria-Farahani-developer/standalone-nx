@@ -1,33 +1,23 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
+import type Entity from '@ant-design/cssinjs/es/Cache';
 import { useServerInsertedHTML } from 'next/navigation';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
-export function StyledComponentsRegistry({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  // Only create stylesheet once with lazy initial state
-  // x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
-  const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
 
+
+const StyledComponentsRegistry = ({ children }: React.PropsWithChildren) => {
+  const cache = React.useMemo<Entity>(() => createCache(), []);
+  const isServerInserted = React.useRef<boolean>(false);
   useServerInsertedHTML(() => {
-    const styles = styledComponentsStyleSheet.getStyleElement();
-
-    // Types are out of date, clearTag is not defined.
-    // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/65021
-    (styledComponentsStyleSheet.instance as any).clearTag();
-
-    return <>{styles}</>;
+    if (isServerInserted.current) {
+      return;
+    }
+    isServerInserted.current = true;
+    return <style id="antd" dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }} />;
   });
+  return <StyleProvider cache={cache}>{children}</StyleProvider>;
+};
 
-  if (typeof window !== 'undefined') return <>{children}</>;
-
-  return (
-    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
-      {children}
-    </StyleSheetManager>
-  );
-}
+export default StyledComponentsRegistry;
