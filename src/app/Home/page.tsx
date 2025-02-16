@@ -1,57 +1,14 @@
 'use client';
+import {  loadTr } from '@myapp/libs/translation';
 
-import React, { useState } from 'react';
-import { Breadcrumb, Layout, Menu, Steps, theme } from 'antd';
-import { breadcrumbItems, items, stepItems } from './utils';
+import fa from './locale/fa';
+import en from './locale/en';
+import App from './components/app/app';
 
-const { Header, Content, Footer, Sider } = Layout;
+const HomeWidget: React.FC = () => {
+  loadTr({ en, fa });
 
-const App: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-
-  return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
-      >
-        <div className="demo-logo-vertical" />
-        <Menu
-          theme="dark"
-          defaultSelectedKeys={['1']}
-          mode="inline"
-          items={items}
-        />
-      </Sider>
-      <Layout>
-        <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }} items={breadcrumbItems} />
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <Steps
-              direction="horizontal"
-              current={2}
-              items={stepItems}
-            />
-          </div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
-      </Layout>
-    </Layout>
-  );
+  return <App />;
 };
 
-export default App;
+export default HomeWidget;

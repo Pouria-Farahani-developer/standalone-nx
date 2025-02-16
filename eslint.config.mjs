@@ -1,3 +1,4 @@
+import baseConfig from './eslint.base.config.mjs';
 import { FlatCompat } from '@eslint/eslintrc';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -10,11 +11,9 @@ const compat = new FlatCompat({
 });
 
 export default [
+  ...baseConfig,
   ...fixupConfigRules(compat.extends('next')),
   ...fixupConfigRules(compat.extends('next/core-web-vitals')),
-  ...nx.configs['flat/base'],
-  ...nx.configs['flat/typescript'],
-  ...nx.configs['flat/javascript'],
   {
     ignores: ['**/dist'],
   },
