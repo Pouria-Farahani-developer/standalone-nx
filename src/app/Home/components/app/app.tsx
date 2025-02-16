@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Breadcrumb, Layout, Menu, Steps, Switch, theme } from 'antd';
+import { Breadcrumb, Button, Layout, Menu, Steps, Switch, theme } from 'antd';
 import { changeLanguage, useTr } from '@myapp/libs/translation';
 import { breadcrumbItems, items, stepItems } from '../../utils';
 import i18n from 'i18next';
@@ -39,7 +39,7 @@ const App: React.FC = () => {
         />
       </Sider>
       <Layout>
-        <Breadcrumb style={{ margin: '16px 0' }} items={breadcrumbItems} />
+        <Breadcrumb style={{ margin: '16px' }} items={breadcrumbItems} />
 
         <Content style={{ margin: '0 16px' }}>
           <div
@@ -52,6 +52,9 @@ const App: React.FC = () => {
           >
             <Steps direction="horizontal" current={2} items={stepItems(t)} />
             <Switch onChange={handleChange} style={{ margin: '2rem 0' }} />
+            <div>
+              <Button type={'primary'}>hi</Button>
+            </div>
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
