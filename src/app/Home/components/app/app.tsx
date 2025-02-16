@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Breadcrumb, Button, Layout, Menu, Steps, Switch, theme } from 'antd';
+import { Breadcrumb, Layout, Menu, Steps, Switch, theme } from 'antd';
 import { changeLanguage, useTr } from '@myapp/libs/translation';
 import { breadcrumbItems, items, stepItems } from '../../utils';
 import i18n from 'i18next';
+import { useTheme } from '@myapp/libs/ui-kit';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -10,6 +11,8 @@ const App: React.FC = () => {
   const [t] = useTr();
 
   const [collapsed, setCollapsed] = useState(false);
+
+  const { isDarkMode, toggleTheme } = useTheme();
 
   const handleChange = () => {
     if (i18n.language === 'fa') {
@@ -51,10 +54,18 @@ const App: React.FC = () => {
             }}
           >
             <Steps direction="horizontal" current={2} items={stepItems(t)} />
-            <Switch onChange={handleChange} style={{ margin: '2rem 0' }} />
-            <div>
-              <Button type={'primary'}>hi</Button>
-            </div>
+            <Switch
+              onChange={handleChange}
+              style={{ margin: '2rem' }}
+              checkedChildren={'fa'}
+              unCheckedChildren={'en'}
+            />
+            <Switch
+              checked={isDarkMode}
+              onChange={toggleTheme}
+              checkedChildren="☀️"
+              unCheckedChildren="🌙"
+            />
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
