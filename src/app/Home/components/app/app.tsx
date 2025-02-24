@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Breadcrumb, Layout, Menu, Steps, Switch, theme } from 'antd';
-import {  useTr } from '@myapp/libs/translation';
+import { useTr } from '@myapp/libs/translation';
 import { breadcrumbItems, items, stepItems } from '../../utils';
 import { useTheme } from '@myapp/libs/ui-kit';
+
+
 
 const { Content, Footer, Sider } = Layout;
 
@@ -11,13 +13,12 @@ const App: React.FC = () => {
 
   const [collapsed, setCollapsed] = useState(false);
 
-  const { isDarkMode, toggleTheme , toggleLanguage , language } = useTheme();
-
-
+  const { isDarkMode, toggleTheme, toggleLanguage, language } = useTheme();
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -50,7 +51,7 @@ const App: React.FC = () => {
             <Switch
               checked={language !== 'fa_IR'}
               onChange={() => {
-                toggleLanguage()
+                toggleLanguage();
               }}
               style={{ margin: '2rem' }}
               checkedChildren={'fa'}
