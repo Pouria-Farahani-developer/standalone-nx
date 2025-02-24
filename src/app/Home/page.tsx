@@ -7,7 +7,6 @@ import App from './components/app/app';
 
 const HomeWidget: React.FC = () => {
   loadTr({ en, fa });
-
   return <App />;
 };
 
