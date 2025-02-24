@@ -1,3 +1,7 @@
-// Use this file to export React client components (e.g. those with 'use client' directive) or other non-server utilities
+import { CityInfo } from './cities.mock';
 
-export * from './lib/libs/mockify';
+const Mockify = {
+  CityInfo : CityInfo,
+};
+
+export default Mockify;
